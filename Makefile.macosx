@@ -1,0 +1,40 @@
+#CXX = g++
+CXX = g++
+CXXFLAGS = -DMACOSX -fdata-sections -Wall -pedantic -Os -fno-exceptions -fno-unwind-tables -fno-rtti -DGL_GLEXT_PROTOTYPES -ggdb
+# -Weffc++
+# NDEBUG pro release ?
+LDFLAGS = -ggdb
+LIBS = /usr/local/lib/libglfw.a -framework AGL -framework OpenGL -framework Carbon 
+INCLUDES = 
+FILE2C = utils/file2c.rb 
+
+OBJECTS = main.o snoutlib/glfwapp.o snoutlib/settings.o snoutlib/loadingscreen.o snoutlib/procedural.o \
+	  snoutlib/misc.o snoutlib/timer.o snoutlib/mfont.o snoutlib/svg.o snoutlib/tesselate.o \
+	  snoutlib/menu.o snoutlib/shader.o snoutlib/staticmesh.o snoutlib/rtt_fbo.o snoutlib/gldefs.o\
+	  snoutlib/particles.o snoutlib/perlin.o snoutlib/bbox.o snoutlib/fx.o\
+	  gamemenu.o layout.o background.o boat.o pboat.o pe_smoke.o resources.o credits.o hiscore.o \
+	  torpedo.o pe_bubbles.o pe_bubble_expl.o game.o missile.o fx_missile_expl.o pe_smoketrail.o \
+	  fx_ship_expl.o fx_torpedo_expl.o pe_torpedo_expl.o fx_moving_text.o
+
+SRCS = $(OBJECTS:.o=.cpp)
+	  
+BINARY = sea
+
+.SUFFIXES: .cpp .o
+
+all: $(BINARY) 
+
+$(BINARY): $(OBJECTS)
+	$(CXX) $(LDFLAGS) -o $(BINARY) $(OBJECTS) $(LIBS)
+
+strip: $(BINARY)
+	strip -s -R .comment $(BINARY)
+
+pack: $(BINARY) strip
+	upx --ultra-brute $(BINARY)
+
+size: clean pack
+      
+clean: 
+	rm -f $(OBJECTS) $(BINARY) core 
+	

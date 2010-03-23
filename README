@@ -1,0 +1,27 @@
+Sea Defender
+
+Simple missile command clone in 96k for linux/win/macosx
+
+No music, sorry - plenty of space but no talent.
+
+Requires videocard with GLSL support, tested on GeForce FX5200, Radeon X1300 and Apple's software renderer.
+
+Using GLFW and math3d++, font is from http://apostrophiclab.pedroreina.net/.
+
+
+
+The code is horrible due to looming deadline for compo entry submission (which i missed anyway in the end),
+so i apologize in advance to anyone reading it.
+
+Data for this game are sourced from .svg path elements (curves), which are converted by ruby scripts
+in utils/ directory to .m and .mfont binary files, which in turn are then processed into .h source code
+files as resource inserts (because there is no cross-platform resource handling in C++).
+
+Distributed under the terms of MIT license (see file LICENSE) with the following exceptions:
+
+math3d++/ - Copyright (c) 2004-2005, Trenkwalder Markus
+data/fonts/kronika.svg - http://apostrophiclab.pedroreina.net/
+data/model/OpenGL_logo_flat.svg - http://www.opengl.org
+snoutlib/perlin.cpp - http://www.flipcode.com/archives/Perlin_Noise_Class.shtml
+
+Copyright (c) 2010 Jan Dvorak <jan.dvorak@kraxnet.cz>
