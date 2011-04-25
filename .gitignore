@@ -1,3 +1,4 @@
 *.o
 sea
 sea.exe
+.deps/
