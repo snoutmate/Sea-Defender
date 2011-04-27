@@ -253,9 +253,6 @@ void Game::gamemode_specific_stuff(void)
   switch(m_gamemode) {
   //
   case GM_STARTWAVE:
-    m_pboat1->reload_ammo();
-    m_pboat2->reload_ammo();
-
     if (gm_time<=3.0) {
       float alpha = fade_in_out(0.0, 0.5,  2.5, 3.0, gm_time);
       alpha = clamp<float>(alpha,0.0,1.0);
