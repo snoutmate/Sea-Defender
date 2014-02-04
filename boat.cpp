@@ -10,14 +10,17 @@
 #include "snoutlib/timer.h"
 #include "game.h"
 #include "fx_ship_expl.h"
+#include "data/text/shipnames.h"
 
+int Boat::m_names_used[];
 
-Boat::Boat(vec2 pos,string name,float scale) :
-  m_pos(pos),m_name(name),m_scale(scale),
+Boat::Boat(vec2 pos,int index,float scale) :
+  m_pos(pos),m_scale(scale),
 	m_pos_shift(0.0),m_rot(0.0),
 	m_damaged(false),m_sinking(false), m_obb(AABB(0,0,0,0))
 {
   m_model = &g_resources.mesh_tanker;
+	m_name = randname(index);
 
 	m_smoke = NULL;
 	for(int i=0;i<m_num_bubble_streams;++i)
@@ -29,6 +32,24 @@ Boat::~Boat()
 	delete m_smoke;
 	for(int i=0;i<m_num_bubble_streams;++i)
 		delete m_bbl[i];
+}
+
+string Boat::randname(int idx) {
+	if(idx == 0) {
+		int max_idx = 0;
+		while(ship_names[max_idx])
+			max_idx++;
+
+		m_names_used[0] = m_names_used[1] = m_names_used[2] = rand() % max_idx;
+		do {
+			m_names_used[1] = rand() % max_idx;
+		} while(m_names_used[0] == m_names_used[1]); 
+		do {
+			m_names_used[2] = rand() % max_idx;
+		} while(m_names_used[2] == m_names_used[0] || m_names_used[2] == m_names_used[1]);
+		
+	}
+	return string(ship_names[m_names_used[idx]]);
 }
 
 void Boat::hit(float x)

@@ -1,0 +1,5 @@
+*.o
+sea
+sea.exe
+sea.cfg
+.deps/

@@ -64,7 +64,8 @@ DEPDIR = .deps
 df = $(DEPDIR)/$(*F)
 
 %.o : %.cpp
-	@$(MAKEDEPEND); \
+	@test -d $(DEPDIR) || mkdir $(DEPDIR); \
+	$(MAKEDEPEND); \
 	  cp $(df).d $(df).P; \
 	  sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(df).d >> $(df).P; \

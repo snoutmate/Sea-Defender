@@ -16,9 +16,9 @@ extern App *g_app;
 
 Game::Game(int difficulty,int wave) : m_score(0), m_difficulty(difficulty), m_wave(wave), m_hiscore_name(""), m_ended(false)
 {
-  m_boats[0] = new Boat(vec2(0.37f,0.24f),"S.S. Epic Failure");
-  m_boats[1] = new Boat(vec2(0.80f,0.24f),"The Slightly Radioactive Whale");
-  m_boats[2] = new Boat(vec2(1.23f,0.24f),"Nice Boat");
+  m_boats[0] = new Boat(vec2(0.37f,0.24f),0);
+  m_boats[1] = new Boat(vec2(0.80f,0.24f),1);
+  m_boats[2] = new Boat(vec2(1.23f,0.24f),2);
 
   m_pboat1 = new PBoat(vec2(0.08f,0.25f));
   m_pboat2 = new PBoat(vec2(1.52f,0.25f));
@@ -253,9 +253,6 @@ void Game::gamemode_specific_stuff(void)
   switch(m_gamemode) {
   //
   case GM_STARTWAVE:
-    m_pboat1->reload_ammo();
-    m_pboat2->reload_ammo();
-
     if (gm_time<=3.0) {
       float alpha = fade_in_out(0.0, 0.5,  2.5, 3.0, gm_time);
       alpha = clamp<float>(alpha,0.0,1.0);

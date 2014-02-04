@@ -11,6 +11,7 @@
 class Boat
 {
 	static const int m_num_bubble_streams = 5;
+	static int m_names_used[3];
 	
   StaticMesh **m_model;
   vec2 m_pos;
@@ -32,10 +33,12 @@ class Boat
 	ParticleEffect *m_bbl[m_num_bubble_streams];
 	float m_bbl_emitpos_x[m_num_bubble_streams];
 
+	string randname(int index);
+
 public:
 	OBB m_obb;
 
-  Boat(vec2 pos,string name="",float scale=0.41);
+  Boat(vec2 pos,int index,float scale=0.41);
 	~Boat();
 
   void draw(void);
